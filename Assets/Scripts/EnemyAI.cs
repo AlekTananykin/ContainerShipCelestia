@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     private bool _isAlive;
-    public float _speed = 0.1f;
+    [SerializeField] private float _speed = 1f;
     public float obstacleRange = 5.0f;
 
     // Start is called before the first frame update
@@ -20,13 +20,16 @@ public class EnemyAI : MonoBehaviour
         if (!_isAlive)
             return;
 
-        transform.Translate(0, 0, _speed * Time.deltaTime);
+        transform.Translate(0, 0, _speed * Time.deltaTime, Space.Self);
 
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.SphereCast(ray, 0.75f, out hit))
+        if (Physics.SphereCast(ray, 0.3f, out hit))
         {
+            if (hit.collider.gameObject.tag == "Bomb")
+                return;
+
             if (hit.distance < obstacleRange)
             {
                 float angle = Random.Range(-60, 60);

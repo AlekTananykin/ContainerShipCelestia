@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetStoreOriginals\_SNAPS_PrototypingAssets\About\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\BombReaction.cs" />
+    <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\KeyboardMove.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
