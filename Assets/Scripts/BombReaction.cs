@@ -6,6 +6,7 @@ public class BombReaction : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("bomb!");
         GameObject collisionObject = collision.gameObject;
         if (!collisionObject.CompareTag("Enemy"))
             return;

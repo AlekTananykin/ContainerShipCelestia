@@ -22,20 +22,20 @@ public class EnemyAI : MonoBehaviour
 
         transform.Translate(0, 0, _speed * Time.deltaTime, Space.Self);
 
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
+        //Ray ray = new Ray(transform.position, transform.forward);
+        //RaycastHit hit;
 
-        if (Physics.SphereCast(ray, 0.3f, out hit))
-        {
-            if (hit.collider.gameObject.tag == "Bomb")
-                return;
+        //if (Physics.SphereCast(ray, 0.3f, out hit))
+        //{
+        //    if (hit.collider.gameObject.tag == "Bomb")
+        //        return;
 
-            if (hit.distance < obstacleRange)
-            {
-                float angle = Random.Range(-60, 60);
-                transform.Rotate(0, angle, 0);
-            }
-        }
+        //    if (hit.distance < obstacleRange)
+        //    {
+        //        float angle = Random.Range(-60, 60);
+        //        transform.Rotate(0, angle, 0);
+        //    }
+        //}
     }
 
     public void SetAlive(bool isAlive)

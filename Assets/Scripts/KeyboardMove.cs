@@ -20,9 +20,9 @@ public class KeyboardMove : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal") * _speed;
         float deltaZ = Input.GetAxis("Vertical") * _speed;
         Vector3 movement = new Vector3(deltaX, 0, deltaZ);
-        
-        movement.y = 0f;//=-9.8Если здесь добавить значение, 
-        //то персонаж начинает скользить как по льду. Почему?
+
+        movement.y = 0;// -9.8f;
+
 
         movement = Vector3.ClampMagnitude(movement, _speed);
         movement *= Time.deltaTime;

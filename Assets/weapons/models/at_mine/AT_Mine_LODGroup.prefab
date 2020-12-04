@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 20507892}
   m_Layer: 0
   m_Name: AT_Mine_LODGroup
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
