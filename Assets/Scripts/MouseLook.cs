@@ -10,6 +10,7 @@ public class MouseLook : MonoBehaviour
     public float _minVert = -45.0f;
     public float _maxVert = 45.0f;
     public float _rotationX = 0;
+    [SerializeField] private GameObject _payer;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +26,12 @@ public class MouseLook : MonoBehaviour
     {
         _rotationX -= Input.GetAxis("Mouse Y") * _sensVert;
         _rotationX = Mathf.Clamp(_rotationX, _minVert, _maxVert);
+        transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
 
         float delta = Input.GetAxis("Mouse X") * _sensHor;
-        float rotationY = transform.localEulerAngles.y + delta;
 
-        transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+        float rotationY = _payer.transform.localEulerAngles.y + delta;
+        _payer.transform.localEulerAngles = new Vector3(0, rotationY, 0);
 
     }
 }

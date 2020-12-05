@@ -36,7 +36,6 @@ public class EnemyAI : MonoBehaviour
 
             if (hit.distance < obstacleRange)
             {
-                Debug.Log(hit.collider.gameObject.name);
                 float angle = Random.Range(-60, 60);
                 transform.Rotate(0, angle, 0);
             }

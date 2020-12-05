@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\BombSetting.cs" />
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\EnemyTriggerScript.cs" />
     <Compile Include="Assets\Scripts\KeyboardMove.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
     <Compile Include="Assets\Scripts\RayShooter.cs" />
