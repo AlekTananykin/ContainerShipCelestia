@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyboardMove : MonoBehaviour
 {
 
-    public float _speed = 1.0f;
+    public float _speed = 3.0f;
     private CharacterController _charController;
 
     // Start is called before the first frame update
@@ -21,14 +21,11 @@ public class KeyboardMove : MonoBehaviour
         float deltaZ = Input.GetAxis("Vertical") * _speed;
         Vector3 movement = new Vector3(deltaX, 0, deltaZ);
 
-        movement.y = 0;// -9.8f;
-
-
+        //movement.y = -9.8f;
+        
         movement = Vector3.ClampMagnitude(movement, _speed);
         movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
-
-        transform.Translate(deltaX * Time.deltaTime, 0, deltaZ * Time.deltaTime);
     }
 }

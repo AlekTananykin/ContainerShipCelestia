@@ -9,8 +9,7 @@ public class MouseLook : MonoBehaviour
 
     public float _minVert = -45.0f;
     public float _maxVert = 45.0f;
-    private float _rotationX = 0;
-
+    public float _rotationX = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -31,5 +30,6 @@ public class MouseLook : MonoBehaviour
         float rotationY = transform.localEulerAngles.y + delta;
 
         transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
+
     }
 }
