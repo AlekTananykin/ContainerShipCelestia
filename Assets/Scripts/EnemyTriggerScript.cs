@@ -14,10 +14,9 @@ public class EnemyTriggerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
+        if ("Player" != other.gameObject.tag)
+            return;
 
         _enemy = Instantiate(_enemyPrefab) as GameObject;
-
     }
-
 }

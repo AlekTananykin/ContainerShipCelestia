@@ -160,8 +160,8 @@ AnimatorTransition:
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8441405525979280389}
-  m_Solo: 0
-  m_Mute: 0
+  m_Solo: 1
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 1
 --- !u!1102 &-3999290014835657814
