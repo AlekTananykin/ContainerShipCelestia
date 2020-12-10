@@ -69,9 +69,12 @@
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\EnemyTriggerScript.cs" />
+    <Compile Include="Assets\Scripts\ExplodeScript.cs" />
     <Compile Include="Assets\Scripts\FireballMoving.cs" />
+    <Compile Include="Assets\Scripts\GranadeReaction.cs" />
     <Compile Include="Assets\Scripts\KeyboardMove.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\RayShooter.cs" />
     <Compile Include="Assets\Scripts\ReactiveTarget.cs" />
     <None Include="Assets\DownloadedAssets\Sci-Fi Styled Modular Pack\Readme.txt" />

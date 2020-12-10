@@ -32,5 +32,6 @@ public class ReactiveTarget : MonoBehaviour
         this.transform.Rotate(0, -75, 0);
         yield return new WaitForSeconds(1.5f);
         Destroy(this.gameObject);
+
     }
 }

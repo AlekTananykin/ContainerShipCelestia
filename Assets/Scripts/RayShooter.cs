@@ -7,18 +7,13 @@ using UnityEngine;
 
 public class RayShooter : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GameObject _granadePrefab;
+    [SerializeField] private GameObject _minePrefab;
 
-    private void OnGUI()
-    {
-        
-        Camera camera = Camera.main;
+    [SerializeField] private float _granadeThrowForce = 20;
 
-        int size = 20;
-        float posX = camera.pixelWidth / 2 - size / 4;
-        float poxY = camera.pixelHeight / 2 - size / 2;
-        GUI.Label(new Rect(posX, poxY, size, size), "*");
-    }
+    enum Weapon {LaserRay, Mine, Granade };
+    private Weapon _selectedWeapon = Weapon.LaserRay;
 
     void Start()
     {
@@ -29,6 +24,7 @@ public class RayShooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SelectWeapon();
         if (Input.GetMouseButtonDown(0))
         {
             Camera camera = Camera.main;
@@ -36,27 +32,56 @@ public class RayShooter : MonoBehaviour
                 camera.pixelWidth / 2, camera.pixelHeight / 2, 0);
 
             Ray ray = camera.ScreenPointToRay(point);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+
+            switch (_selectedWeapon)
             {
-
-                GameObject hitObject = hit.transform.gameObject;
-                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
-
-                if (null != target)
+                case Weapon.LaserRay:
                 {
-                    
-                    target.ReactToHit();
+                    ShooteByRay(ray);
+                    break;
                 }
-                else
-                    StartCoroutine(ShareIndicator(hit.point));
+                case Weapon.Granade:
+                {
+                    ToThrowGranade(ray);
+                    break;
+                }
+                case Weapon.Mine:
+                {
+                    ToThrowMine(ray);
+                    break;
+                }
             }
+        }
+    }
+
+    private void SelectWeapon()
+    {
+        if (Input.GetKey(KeyCode.Alpha1))
+            _selectedWeapon = Weapon.LaserRay;
+        else if (Input.GetKey(KeyCode.Alpha2))
+            _selectedWeapon = Weapon.Granade;
+        else if (Input.GetKey(KeyCode.Alpha3))
+            _selectedWeapon = Weapon.Mine;
+    }
+
+    private void ShooteByRay(Ray ray)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject hitObject = hit.transform.gameObject;
+            ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
+
+            if (null != target)
+                target.ReactToHit();
+            else
+                StartCoroutine(ShareIndicator(hit.point));
         }
     }
 
     private IEnumerator ShareIndicator(Vector3 point)
     {
-        GameObject sphere = 
+        GameObject sphere =
             GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
         sphere.transform.position = point;
@@ -64,5 +89,27 @@ public class RayShooter : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         Destroy(sphere);
+    }
+
+    private void ToThrowGranade(Ray ray)
+    {
+        GameObject granade = Instantiate(_granadePrefab);
+        granade.GetComponent<GranadeReaction>().Activate();
+        ToThrow(granade, ray, _granadeThrowForce);
+    }
+
+    private void ToThrowMine(Ray ray)
+    {
+        GameObject mine = Instantiate(_minePrefab);
+        ToThrow(mine, ray, 1);
+    }
+
+    private void ToThrow(GameObject bomb, Ray ray, float force)
+    {
+        bomb.transform.position =
+            transform.position + transform.forward;
+
+        Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
+        bombRb.AddForce(ray.direction * force, ForceMode.Impulse);
     }
 }

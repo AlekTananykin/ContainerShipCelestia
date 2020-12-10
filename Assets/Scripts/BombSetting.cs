@@ -16,15 +16,14 @@ public class BombSetting : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2"))
         {
-            RaycastHit hit;
-            Ray ray = new Ray(transform.position + 
-                transform.forward + transform.up, new Vector3(0, -1, 0));
+            GameObject mine = Instantiate(_bombPrefab) as GameObject;
+            mine.transform.position = 
+                transform.position + transform.forward;
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject mine = Instantiate(_bombPrefab) as GameObject;
-                mine.transform.position = hit.point;
-            }
+            Debug.Log(transform.position);
+
+            Rigidbody mineRb = mine.GetComponent<Rigidbody>();
+            mineRb.AddForce(this.transform.forward, ForceMode.Impulse);
         }
     }
 }

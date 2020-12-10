@@ -21,7 +21,10 @@ public class FireballMoving : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-            Debug.Log("Player hit");
+        {
+            PlayerController playerController = gameObject.GetComponent<PlayerController>();
+            playerController.ReactToHit(3);
+        }
 
         if (null != _shooter)
         {

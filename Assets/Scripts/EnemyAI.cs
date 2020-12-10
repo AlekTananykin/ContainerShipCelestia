@@ -11,6 +11,9 @@ public class EnemyAI : MonoBehaviour
     private GameObject _fireball = null;
     private GameObject _player = null;
 
+    private const float _rayRechargeTimeMs = 1.5f;
+    private float _rayTime = 0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -74,17 +77,6 @@ public class EnemyAI : MonoBehaviour
         this.transform.LookAt(targetPos);
     }
 
-    private void ShootThePlayer()
-    {
-        if (null != _fireball || null == _player)
-            return;
-
-        _fireball = Instantiate(_fireballPrefab);
-        _fireball.transform.position =
-           transform.position + new Vector3(0, 1, 0) + transform.forward * 1.5f;
-
-        _fireball.transform.LookAt(_player.transform.position);
-    }
 
     private GameObject GetHitObject(out RaycastHit hit)
     {
@@ -110,4 +102,38 @@ public class EnemyAI : MonoBehaviour
         _fireball = null;
     }
 
+    private void ShootThePlayer()
+    {
+        ShootThePlayerByRay();
+        //ShootThePlayerByFireBall();
+    }
+
+    private void ShootThePlayerByRay()
+    {
+        if (null == _player)
+            return;
+
+        _rayTime += Time.deltaTime;
+        if (_rayTime < _rayRechargeTimeMs)
+            return;
+
+        _rayTime = 0;
+        Debug.DrawRay(transform.position, 
+            _player.transform.position, Color.red, 1400f);
+
+        var playerController = _player.GetComponent<PlayerController>();
+        playerController.ReactToHit(5);
+    }
+
+    private void ShootThePlayerByFireBall()
+    {
+        if (null != _fireball || null == _player)
+            return;
+
+        _fireball = Instantiate(_fireballPrefab);
+        _fireball.transform.position =
+           transform.position + new Vector3(0, 1, 0) + transform.forward * 1.5f;
+
+        _fireball.transform.LookAt(_player.transform.position);
+    }
 }
