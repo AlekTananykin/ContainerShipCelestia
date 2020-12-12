@@ -10,7 +10,7 @@ public class RayShooter : MonoBehaviour
     [SerializeField] private GameObject _granadePrefab;
     [SerializeField] private GameObject _minePrefab;
 
-    [SerializeField] private float _granadeThrowForce = 20;
+    [SerializeField] private float _granadeThrowForce = 5f;
 
     enum Weapon {LaserRay, Mine, Granade };
     private Weapon _selectedWeapon = Weapon.LaserRay;
