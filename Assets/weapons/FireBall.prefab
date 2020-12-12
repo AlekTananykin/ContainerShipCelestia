@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _shooter: {fileID: 0}
+  _shooter: {fileID: 6703835246157518401}
 --- !u!54 &7771790548231567429
 Rigidbody:
   m_ObjectHideFlags: 0

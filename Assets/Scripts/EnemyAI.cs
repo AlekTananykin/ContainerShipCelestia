@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     private bool _isAlive;
-    [SerializeField] private float _speed = 0.4f;
-    public float obstacleRange = 0.5f;
+    private const float _speed = 5.0f;
+    public float _obstacleRange = 0.5f;
+    private const float _shootDistance = 5.0f;
+
     [SerializeField] private GameObject _fireballPrefab = null;
     private GameObject _fireball = null;
     private GameObject _player = null;
@@ -41,8 +43,8 @@ public class EnemyAI : MonoBehaviour
 
             if (hitObject.CompareTag("Player") || 
                 hitObject.CompareTag("RoboFireBall"))
-            {   
-                ShootThePlayer();
+            {
+                ReactOnPlayer(hit.distance);
                 return;
             }
             _player = null;
@@ -57,16 +59,24 @@ public class EnemyAI : MonoBehaviour
         {
             _player = hitObject;
             ToFollowThePlayer();
-            ShootThePlayer();
+            ReactOnPlayer(hit.distance);
             return;
         }
 
-        if (hit.distance < obstacleRange)
+        if (hit.distance < _obstacleRange)
         {
             float angle = Random.Range(-60, 60);
             transform.Rotate(0, angle, 0);
         }
         transform.Translate(0, 0, _speed * Time.deltaTime, Space.Self);
+    }
+
+    private void ReactOnPlayer(float diatance)
+    {
+        if (diatance > _shootDistance)
+            transform.Translate(0, 0, _speed * Time.deltaTime, Space.Self);
+        else
+            ShootThePlayer();
     }
 
     private void ToFollowThePlayer()
@@ -76,7 +86,6 @@ public class EnemyAI : MonoBehaviour
             _player.transform.position.z);
         this.transform.LookAt(targetPos);
     }
-
 
     private GameObject GetHitObject(out RaycastHit hit)
     {
