@@ -5,9 +5,10 @@ using UnityEngine;
 public class BombReaction : MonoBehaviour
 {
     private const float _hitRadius = 5f;
+    private const float _explosionForce = 10000f;
     private ExplodeScript _explode;
 
-    BombReaction() => _explode = new ExplodeScript(_hitRadius);
+    BombReaction() => _explode = new ExplodeScript(_hitRadius, _explosionForce);
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -16,7 +17,6 @@ public class BombReaction : MonoBehaviour
             return;
 
         _explode.Explode(transform.position);
-
         Destroy(this.gameObject);
     }
 }

@@ -7,7 +7,7 @@ public class KeyboardMove : MonoBehaviour
 
     public const float _speed = 10.0f;
     private const float _gravity = -9.8f;
-    [SerializeField] private float _jumpSpeed = 2f;
+    [SerializeField] private float _jumpSpeed = 12f;
 
     private float _vertSpeed = 0;
 
@@ -32,8 +32,8 @@ public class KeyboardMove : MonoBehaviour
         //if (Input.GetButtonDown("Jump"))
         //{
         //    Debug.Log("Jump");
-        //    Rigidbody rb = this.GetComponent<Rigidbody>();
-        //    rb.AddForce(0, 0, 10000f, ForceMode.Impulse);
+        //    Rigidbody rb = GetComponent<Rigidbody>();
+        //    rb.AddForce(Vector3.up * 100f, ForceMode.Impulse);
         //}
 
         movement = ProcessVerticalMove(movement);

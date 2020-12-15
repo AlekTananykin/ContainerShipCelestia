@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IReactToHit
 {
     private bool _isAlive;
     private const float _speed = 5.0f;
@@ -31,7 +31,10 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         if (!_isAlive)
+        {
+            Destroy(this.gameObject, 3f);
             return;
+        }
 
         RaycastHit hit;
         GameObject hitObject;
@@ -101,11 +104,6 @@ public class EnemyAI : MonoBehaviour
             transform.forward);
     }
 
-    public void SetAlive(bool isAlive)
-    {
-        this._isAlive = isAlive;
-    }
-
     public void Recharge()
     {
         _fireball = null;
@@ -145,4 +143,13 @@ public class EnemyAI : MonoBehaviour
 
         _fireball.transform.LookAt(_player.transform.position);
     }
+
+    private int _health = 100;
+    public void ReactToHit(int hitCount)
+    {
+        _health -= hitCount;
+        if (_health <= 0)
+            _isAlive = false;
+    }
+
 }

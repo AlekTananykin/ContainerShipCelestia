@@ -73,7 +73,7 @@ public class RayShooter : MonoBehaviour
             ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();
 
             if (null != target)
-                target.ReactToHit();
+                target.ReactToHit(10);
             else
                 StartCoroutine(ShareIndicator(hit.point));
         }

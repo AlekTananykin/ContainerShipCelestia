@@ -5,30 +5,37 @@ using UnityEngine;
 public class ExplodeScript
 {
     private float _hitRadius;
+    private float _explosionForce;
 
-    public ExplodeScript(float hitRadius)
+    public ExplodeScript(float hitRadius, float explosionForce)
     {
         _hitRadius = hitRadius;
+        _explosionForce = explosionForce;
     }
 
     public void Explode(Vector3 explodePosition)
     {
         Collider[] colliders =
             Physics.OverlapSphere(explodePosition, _hitRadius);
-
-        foreach (Collider collider in colliders)
+        const float lift = 0;
+        foreach (Collider item in colliders)
         {
-            GameObject gameObject = collider.gameObject;
+            GameObject gameObject = item.gameObject;
 
-            Debug.Log(gameObject.tag);
+            Debug.Log(gameObject.name);
 
             Rigidbody targetRb;
-            if (gameObject.TryGetComponent<Rigidbody>(out targetRb))
-                targetRb.AddExplosionForce(1000f, explodePosition, _hitRadius);
-            
-            ReactiveTarget reaction;
-            if (gameObject.TryGetComponent<ReactiveTarget>(out reaction))
-                reaction.ReactToHit();
+            if (gameObject.TryGetComponent(out targetRb))
+                targetRb.AddExplosionForce(_explosionForce, explodePosition, 
+                    _hitRadius, lift, ForceMode.Impulse);
+
+            IReactToHit reaction;
+            float ditance = (gameObject.transform.position - explodePosition).sqrMagnitude;
+            if (gameObject.TryGetComponent(out reaction))
+            {
+                reaction.ReactToHit((int)((0 == ditance)? _explosionForce: 
+                    (_explosionForce / ditance)));
+            }
         }
     }
 

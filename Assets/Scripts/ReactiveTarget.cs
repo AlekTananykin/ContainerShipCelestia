@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class ReactiveTarget : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private int _health = 100;
+    public bool IsAlive { get; private set; }
+
+
     void Start()
     {
-        
+        IsAlive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
-    public void ReactToHit()
+
+    public void ReactToHit(int hitCount)
     {
-        EnemyAI behaviour = GetComponent<EnemyAI>();
-        if (null != behaviour)
-            behaviour.SetAlive(false);
-        else
-            Debug.Log("behaviour == null");
+        _health -= hitCount;
 
-
-        StartCoroutine(Die());
+        if (_health <= 0)
+        {
+            IsAlive = false;
+            StartCoroutine(Die());
+        }
     }
 
     IEnumerator Die()
@@ -32,6 +34,5 @@ public class ReactiveTarget : MonoBehaviour
         this.transform.Rotate(0, -75, 0);
         yield return new WaitForSeconds(1.5f);
         Destroy(this.gameObject);
-
     }
 }

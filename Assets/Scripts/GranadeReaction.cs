@@ -9,7 +9,8 @@ public class GranadeReaction : MonoBehaviour
     ExplodeScript _explode;
 
     private const float _hitRadius = 2f;
-    GranadeReaction() => _explode = new ExplodeScript(_hitRadius);
+    private const float _explosionForce = 1000f;
+    GranadeReaction() => _explode = new ExplodeScript(_hitRadius, _explosionForce);
     
     void Start()
     {
