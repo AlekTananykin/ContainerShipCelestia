@@ -67,11 +67,13 @@
     <Compile Include="Assets\Scripts\BombReaction.cs" />
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\DeviceOperator.cs" />
+    <Compile Include="Assets\Scripts\DoorController.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\EnemyTriggerScript.cs" />
     <Compile Include="Assets\Scripts\ExplodeScript.cs" />
     <Compile Include="Assets\Scripts\FireballMoving.cs" />
     <Compile Include="Assets\Scripts\GranadeReaction.cs" />
+    <Compile Include="Assets\Scripts\IDevice.cs" />
     <Compile Include="Assets\Scripts\IReactToHit.cs" />
     <Compile Include="Assets\Scripts\KeyboardMove.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />

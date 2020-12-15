@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Operator : MonoBehaviour
+public class DeviceOperator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Open"))
+        if (Input.GetMouseButtonDown(1))
         {
-            
+            RaycastHit hit;
+            const float maxDistance = 1.5f;
+            if (Physics.Raycast(transform.position, 
+                transform.forward, out hit))
+            {
+                GameObject device = hit.transform.gameObject;
+                if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
+                    transform.forward.normalized)) < 0.5)
+                    return;
+
+                IDevice deviceController;
+                if( device.TryGetComponent<IDevice>(out deviceController))
+                    deviceController.Operate(string.Empty);
+            }
         }
     }
 }
