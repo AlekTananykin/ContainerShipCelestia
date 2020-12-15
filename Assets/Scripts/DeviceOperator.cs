@@ -11,7 +11,7 @@ public class DeviceOperator : MonoBehaviour
             RaycastHit hit;
             const float maxDistance = 1.5f;
             if (Physics.Raycast(transform.position, 
-                transform.forward, out hit))
+                transform.forward, out hit, maxDistance))
             {
                 GameObject device = hit.transform.gameObject;
                 if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
