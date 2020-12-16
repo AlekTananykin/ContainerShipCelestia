@@ -4,22 +4,49 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float _helth;
+    private int _helth;
 
-    void Start()
+    private List<IWeapon> _weaponStorage;
+    private int _selectedWeapon;
+
+    void Awake()
     {
-        _helth = 100f;
+        _helth = 100;
+        _selectedWeapon = 0;
+        _weaponStorage = new List<IWeapon>();
+        _weaponStorage.Add(new ArmHit());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
     }
 
-    public void ReactToHit(float hitAccount)
+    public void ReactToHit(int hitAccount)
     {
         _helth -= hitAccount;
         Debug.Log("Player hit. " + _helth.ToString());
+    }
+
+    private void AddWeapon(IWeapon weapon)
+    {
+        IWeapon storageWeapon = 
+            _weaponStorage.Find((IWeapon item) => weapon.Name == item.Name);
+
+        if (null != storageWeapon)
+            storageWeapon.AddCharge(weapon.Charge);
+        else
+            _weaponStorage.Add(weapon);
+    }
+
+    private IWeapon GetNextWeapon()
+    {
+        _selectedWeapon = (_selectedWeapon + 1) % _weaponStorage.Count;
+        return _weaponStorage[_selectedWeapon];
+    }
+
+    private void AddHealth(int count)
+    {
+        _helth = Mathf.Max(100, _helth + count);
+        Debug.Log("Player helth. " + _helth.ToString());
     }
 }

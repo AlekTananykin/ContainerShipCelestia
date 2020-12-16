@@ -21,6 +21,7 @@ public class DeviceOperator : MonoBehaviour
                 IDevice deviceController;
                 if( device.TryGetComponent<IDevice>(out deviceController))
                     deviceController.Operate(string.Empty);
+                
             }
         }
     }

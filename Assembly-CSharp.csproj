@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetStoreOriginals\_SNAPS_PrototypingAssets\About\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\ArmHit.cs" />
     <Compile Include="Assets\Scripts\BombReaction.cs" />
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\DeviceOperator.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\GranadeReaction.cs" />
     <Compile Include="Assets\Scripts\IDevice.cs" />
     <Compile Include="Assets\Scripts\IReactToHit.cs" />
+    <Compile Include="Assets\Scripts\IWeapon.cs" />
     <Compile Include="Assets\Scripts\KeyboardMove.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
     <Compile Include="Assets\Scripts\NavigationEnemyAI.cs" />
