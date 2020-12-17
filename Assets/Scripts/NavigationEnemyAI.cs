@@ -6,13 +6,14 @@ using UnityEngine.AI;
 public class NavigationEnemyAI : MonoBehaviour, IReactToHit
 {    
     private NavMeshAgent _navMeshAgent = null;
+    private Animator _animator = null;
 
     private PlayerController _playerController;
     private Transform _playerPos;
 
     private float _speedRotation = 50f;
 
-    [SerializeField] private float _stoppingDistance = 2f;
+    [SerializeField] private float _attackDistance = 5f;
     [SerializeField] private float _seeDistance = 20;
 
     [SerializeField] List<Vector3> _wayPoints = new List<Vector3>();
@@ -32,7 +33,10 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
     public void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _navMeshAgent.stoppingDistance = _stoppingDistance;
+        _navMeshAgent.stoppingDistance = _attackDistance;
+
+        _animator = GetComponent<Animator>();
+
         _playerController = FindObjectOfType<PlayerController>();
         _playerPos = _playerController.transform;
     }
@@ -55,7 +59,17 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
             return;
         }
 
-        if (!IsPlayerSeen())
+        if (_navMeshAgent.remainingDistance > _navMeshAgent.stoppingDistance)
+        {
+            _animator.SetBool("move", true);
+        }
+        else 
+        {
+            _animator.SetBool("move", false);
+        }
+
+        Ray rayToPlayer = GetRayToPlayer();
+        if (!IsPlayerSeen(rayToPlayer))
         {
             if (_navMeshAgent.stoppingDistance >=
                 _navMeshAgent.remainingDistance)
@@ -66,8 +80,9 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
             return;
         }
 
-        ToFollowThePlayer();
+        ToFollowThePlayer(rayToPlayer);
 
+        _navMeshAgent.stoppingDistance = _attackDistance;
         _navMeshAgent.SetDestination(_playerPos.position);
         
         ShootThePlayerByRay();
@@ -80,27 +95,23 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
             return;
 
         _rayTime = 0;
-        Debug.DrawRay(transform.position,
-            _playerPos.position, Color.red, 1400f);
-
         _playerController.ReactToHit(5);
     }
 
     private Ray GetRayToPlayer()
     {
-        Vector3 playerDirection = _playerPos.position - transform.position;
-        return new Ray(transform.position + new Vector3(0, 0.7f, 0),
-            playerDirection);
+        Vector3 enemyCenter = new Vector3(transform.position.x, 
+            transform.position.y + 0.7f, 
+            transform.position.z);
+
+        return new Ray(enemyCenter,
+            _playerPos.position - enemyCenter);
     }
 
-    bool IsPlayerSeen()
+    bool IsPlayerSeen(Ray rayToPlayer)
     {
-        Ray rayToPlayer = GetRayToPlayer();
-        float d = Vector3.Dot(Vector3.Normalize(transform.forward),
-            Vector3.Normalize(rayToPlayer.direction));
-
-        if (0.5f > Vector3.Dot(Vector3.Normalize(transform.forward), 
-            Vector3.Normalize(rayToPlayer.direction)))
+        if (0.5f > Vector3.Dot(transform.forward.normalized, 
+            rayToPlayer.direction.normalized))
             return false;
 
         RaycastHit hit;
@@ -115,10 +126,10 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
         return true;
     }
 
-    private void ToFollowThePlayer()
+    private void ToFollowThePlayer(Ray rayToPlayer)
     {
-        Vector3 direction = (_playerPos.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        Quaternion lookRotation = Quaternion.LookRotation(
+            rayToPlayer.direction.normalized);
         lookRotation.x = 0;
         lookRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation,
@@ -131,6 +142,9 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
         _health -= hitCount;
 
         if (_health <= 0)
+        {
             _isAlive = false;
+            _animator.SetBool("die", true);
+        }
     }
 }
