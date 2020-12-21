@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private int _helth;
-
     private List<IWeapon> _weaponStorage;
     private int _selectedWeapon;
+    private HelthIndicatorScript _helthIndicator;
+
+    public int Helth { get; private set; }
 
     void Awake()
     {
-        _helth = 100;
+        Helth = 100;
         _selectedWeapon = 0;
         _weaponStorage = new List<IWeapon>();
         _weaponStorage.Add(new ArmHit());
+
+        _helthIndicator = FindObjectOfType<HelthIndicatorScript>();
     }
 
-    void Update()
+    private void Start()
     {
+        if (null != _helthIndicator)
+            _helthIndicator.Refresh(Helth);
     }
 
     public void ReactToHit(int hitAccount)
     {
-        _helth -= hitAccount;
-        Debug.Log("Player hit. " + _helth.ToString());
+        Helth -= hitAccount;
+        _helthIndicator.Refresh(Helth);
+
+        Debug.Log("Player hit. " + Helth.ToString());
     }
 
     private void AddWeapon(IWeapon weapon)
@@ -46,7 +53,9 @@ public class PlayerController : MonoBehaviour
 
     private void AddHealth(int count)
     {
-        _helth = Mathf.Max(100, _helth + count);
-        Debug.Log("Player helth. " + _helth.ToString());
+        Helth = Mathf.Max(100, Helth + count);
+        _helthIndicator.Refresh(Helth);
+
+        Debug.Log("Player helth. " + Helth.ToString());
     }
 }

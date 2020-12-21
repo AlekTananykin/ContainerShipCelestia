@@ -29,13 +29,6 @@ public class KeyboardMove : MonoBehaviour
         movement = Vector3.ClampMagnitude(movement, _speed);
         movement *= Time.deltaTime;
 
-        //if (Input.GetButtonDown("Jump"))
-        //{
-        //    Debug.Log("Jump");
-        //    Rigidbody rb = GetComponent<Rigidbody>();
-        //    rb.AddForce(Vector3.up * 100f, ForceMode.Impulse);
-        //}
-
         movement = ProcessVerticalMove(movement);
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);

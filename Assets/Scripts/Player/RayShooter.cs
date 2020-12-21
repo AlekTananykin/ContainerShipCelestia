@@ -24,6 +24,9 @@ public class RayShooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (0 == Time.timeScale)
+            return;
+
         SelectWeapon();
         if (Input.GetMouseButtonDown(0))
         {

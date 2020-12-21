@@ -24,6 +24,9 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (0 == Time.timeScale)
+            return;
+
         _rotationX -= Input.GetAxis("Mouse Y") * _sensVert;
         _rotationX = Mathf.Clamp(_rotationX, _minVert, _maxVert);
         transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
