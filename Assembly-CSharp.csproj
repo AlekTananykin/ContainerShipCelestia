@@ -76,8 +76,9 @@
     <Compile Include="Assets\Scripts\BombReaction.cs" />
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\DoorController.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI.cs" />
-    <Compile Include="Assets\Scripts\EnemyTriggerScript.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyTriggerScript.cs" />
+    <Compile Include="Assets\Scripts\Enemies\NavigationEnemyAI.cs" />
     <Compile Include="Assets\Scripts\ExplodeScript.cs" />
     <Compile Include="Assets\Scripts\FireballMoving.cs" />
     <Compile Include="Assets\Scripts\GameInterface\HelthIndicatorScript.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="Assets\Scripts\IWeapon.cs" />
     <Compile Include="Assets\Scripts\Menu\Interface.cs" />
     <Compile Include="Assets\Scripts\Menu\PauseMenuScript.cs" />
-    <Compile Include="Assets\Scripts\NavigationEnemyAI.cs" />
     <Compile Include="Assets\Scripts\Player\DeviceOperator.cs" />
     <Compile Include="Assets\Scripts\Player\KeyboardMove.cs" />
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />

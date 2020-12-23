@@ -10,10 +10,20 @@ public class RayShooter : MonoBehaviour
     [SerializeField] private GameObject _granadePrefab;
     [SerializeField] private GameObject _minePrefab;
 
-    [SerializeField] private float _granadeThrowForce = 5f;
+    [SerializeField] private float _granadeThrowForce = 8f;
+    [SerializeField] private float _mineThrowForce = 1.0f;
+
+    [SerializeField] private ParticleSystem _burstPrefab;
+    private ParticleSystem _burst;
 
     enum Weapon {LaserRay, Mine, Granade };
     private Weapon _selectedWeapon = Weapon.LaserRay;
+
+    public void Awake()
+    {
+        _burst = Instantiate(_burstPrefab);
+    }
+
 
     void Start()
     {
@@ -77,8 +87,11 @@ public class RayShooter : MonoBehaviour
 
             if (null != target)
                 target.ReactToHit(50);
-            else
-                StartCoroutine(ShareIndicator(hit.point));
+            
+            _burst.transform.position = hit.point;
+
+            _burst.transform.rotation = Quaternion.LookRotation(transform.position - hit.point);
+            _burst.Play();
         }
     }
 
@@ -104,7 +117,7 @@ public class RayShooter : MonoBehaviour
     private void ToThrowMine(Ray ray)
     {
         GameObject mine = Instantiate(_minePrefab);
-        ToThrow(mine, ray, 1);
+        ToThrow(mine, ray, _mineThrowForce);
     }
 
     private void ToThrow(GameObject bomb, Ray ray, float force)

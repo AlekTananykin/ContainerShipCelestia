@@ -41,14 +41,11 @@ public class NavigationEnemyAI : MonoBehaviour, IReactToHit
         _playerPos = _playerController.transform;
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         _navMeshAgent.SetDestination(_wayPoints[IncrementWaypointIndex()]);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_isAlive)
