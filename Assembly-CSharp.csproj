@@ -74,6 +74,7 @@
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\Scripts\ArmHit.cs" />
     <Compile Include="Assets\Scripts\BombReaction.cs" />
+    <Compile Include="Assets\Scripts\BoxMedScript.cs" />
     <Compile Include="Assets\Scripts\CubeMoving.cs" />
     <Compile Include="Assets\Scripts\DoorController.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAI.cs" />

@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         return _weaponStorage[_selectedWeapon];
     }
 
-    private void AddHealth(int count)
+    public void AddHealth(int count)
     {
         Helth = Mathf.Max(100, Helth + count);
         _helthIndicator.Refresh(Helth);

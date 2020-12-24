@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.Audio;
 
 public class Interface : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Interface : MonoBehaviour
     [SerializeField] GameObject _volSlider;
     [SerializeField] GameObject _input;
     [SerializeField] string _playername;
+
+    [SerializeField] private AudioMixer _mixer;
 
     const int _beginScene = 1;
 
