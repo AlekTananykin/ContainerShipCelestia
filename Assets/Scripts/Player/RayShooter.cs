@@ -90,7 +90,8 @@ public class RayShooter : MonoBehaviour
             
             _burst.transform.position = hit.point;
 
-            _burst.transform.rotation = Quaternion.LookRotation(transform.position - hit.point);
+            _burst.transform.rotation = Quaternion.LookRotation(
+                transform.position - hit.point);
             _burst.Play();
         }
     }

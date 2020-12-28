@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
             _helthIndicator.Refresh(Helth);
     }
 
+    private void Update()
+    {
+    }
+
     public void ReactToHit(int hitAccount)
     {
         Helth -= hitAccount;

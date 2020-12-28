@@ -22,6 +22,10 @@ public class Interface : MonoBehaviour
     {
         _mainMenu.SetActive(true);
         _settingsMenu.SetActive(false);
+        PlayerController player = FindObjectOfType<PlayerController>();
+        //AudioListener listener = player.gameObject.GetComponent<AudioListener>();
+        //listener.enabled = true;
+        
     }
 
     public void ShowMainMenu()
